@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mi Pueblito de Aprender</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--v:#7c4dff;--vd:#5a32d6;--ink:#2b1b5e}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;font-family:'Fredoka','Trebuchet MS',system-ui,sans-serif;color:var(--ink);text-align:center;background:linear-gradient(180deg,#8fe3ff,#d9ecff 55%,#fff0b3);background-attachment:fixed;overflow-x:hidden}
+main{max-width:520px;margin:0 auto;padding:10px 12px 24px}
+.top{background:#fff;border-radius:22px;padding:8px 12px;box-shadow:0 5px 0 #0002;position:sticky;top:0;z-index:3;margin-bottom:10px}
+.top b{display:block;font-size:1.35rem;color:var(--v)}.top span{font-size:1.2rem;letter-spacing:1px}
+.hide{display:none!important}
+.map{position:relative;height:340px;border-radius:30px;overflow:hidden;border:5px solid #fff;box-shadow:0 8px 0 #0002;background:linear-gradient(180deg,#8fe3ff 0,#c9f1ff 55%,#fff6c4 100%)}
+.map:before{content:'';position:absolute;left:-20%;right:-20%;bottom:-40px;height:190px;background:#7be495;border-radius:50% 50% 0 0}
+.map:after{content:'';position:absolute;left:30%;right:-30%;bottom:-70px;height:170px;background:#4cd18a;border-radius:50% 50% 0 0}
+.sun{position:absolute;top:8px;right:14px;font-size:2.6rem;animation:spin 14s linear infinite}
+.cloud{position:absolute;font-size:2.4rem;opacity:.9;animation:drift 9s ease-in-out infinite alternate}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes drift{to{transform:translateX(26px)}}
+.place{position:absolute;z-index:2;background:none;border:0;box-shadow:none;width:auto;min-height:0;padding:4px;cursor:pointer;font-family:inherit;color:var(--ink);font-weight:700;font-size:1rem;animation:bob 2.4s ease-in-out infinite}
+.place .e{display:block;font-size:3.6rem;filter:drop-shadow(0 4px 2px #0003)}
+.place i{display:inline-block;font-style:normal;background:#fff;border-radius:14px;padding:2px 10px;box-shadow:0 3px 0 #0002;font-size:.95rem}
+.place.used{filter:grayscale(.8);opacity:.7;animation:none}
+@keyframes bob{50%{transform:translateY(-8px)}}
+.bubble{display:flex;gap:10px;align-items:center;background:#fff;border-radius:26px;padding:12px;margin:12px 0;text-align:left;box-shadow:0 6px 0 #0002;border:4px solid #e6dcff}
+.bubble .av{font-size:3.2rem;animation:bob 2s ease-in-out infinite}.bubble p{margin:0;flex:1;font-size:1.15rem;font-weight:600}
+.say{width:54px;height:54px;border-radius:50%;border:0;background:var(--v);color:#fff;font-size:1.5rem;box-shadow:0 4px 0 var(--vd);cursor:pointer;flex:none}
+.back{border:0;background:#fff;color:var(--v);font:700 1.05rem inherit;font-family:inherit;border-radius:18px;padding:10px 16px;box-shadow:0 4px 0 #0002;cursor:pointer;margin:2px 0 8px}
+.badge{display:inline-block;color:#fff;font-weight:700;padding:6px 16px;border-radius:20px;font-size:1.15rem;margin:4px 0}
+.card{background:#fff;border-radius:28px;padding:16px;margin:12px 0;box-shadow:0 7px 0 #0002;border:4px solid #fff}
+.q{font-size:1.5rem;font-weight:700;margin:6px 0 12px;line-height:1.2}
+.dots{display:flex;justify-content:center;gap:10px;margin:6px 0}.d{width:20px;height:20px;border-radius:50%;background:#d8cff5}.d.on{background:#ffc933}.d.cur{background:#ff5d8f;transform:scale(1.3)}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:14px;text-align:left;border:4px solid;border-radius:24px;padding:10px 14px;font:700 1.2rem inherit;font-family:inherit;color:var(--ink);cursor:pointer;min-height:84px;box-shadow:0 5px 0 #0002;width:100%}
+.opt .e{font-size:2.8rem}
+.opt:nth-child(4n+1){background:#ffe3ee;border-color:#ff8fb8}.opt:nth-child(4n+2){background:#dff4ff;border-color:#7fd0ff}
+.opt:nth-child(4n+3){background:#e5ffd9;border-color:#8fe06f}.opt:nth-child(4n+4){background:#fff1c2;border-color:#ffd04d}
+.opt:active{transform:translateY(3px)}
+.opt.ok{background:#aaf0c1!important;border-color:#1f9d55!important;transform:scale(1.04)}
+.opt.no{animation:sh .4s}@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.fb{min-height:34px;font-size:1.3rem;font-weight:700;margin-top:8px}
+.big{font-size:3.4rem;animation:bob 1.6s infinite}
+.go{background:var(--v);color:#fff;border:0;border-radius:22px;padding:14px 22px;font:700 1.3rem inherit;font-family:inherit;box-shadow:0 5px 0 var(--vd);cursor:pointer;width:100%;margin-top:8px}
+.conf{position:fixed;top:-40px;font-size:1.8rem;pointer-events:none;z-index:9;animation:fall 1.8s ease-in forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+.pop{animation:pop .35s!important}@keyframes pop{50%{transform:scale(1.35) rotate(-4deg)}}
+.jump{animation:jump .6s!important}@keyframes jump{30%{transform:translateY(-22px) rotate(-10deg)}60%{transform:translateY(0) rotate(8deg)}}
+.pulse{animation:pulse .5s infinite alternate!important;border-color:#ffb300!important}@keyframes pulse{to{box-shadow:0 0 0 9px #ffd54f88;transform:scale(1.04)}}
+.fly{position:absolute;z-index:2;background:none;border:0;box-shadow:none;font-size:2.4rem;cursor:pointer;width:auto;min-height:0;padding:2px;animation:glide 7s ease-in-out infinite alternate}
+@keyframes glide{to{transform:translate(70px,-26px) rotate(8deg)}}
+.tools{display:flex;justify-content:center;gap:14px}
+</style></head><body><main>
+<div class="top"><b>🏘️ Mi Pueblito de Aprender</b><span id="stars"></span></div>
+
+<section id="home">
+ <div class="map">
+  <span class="sun">☀️</span><span class="cloud" style="left:8%;top:14px">☁️</span><span class="cloud" style="left:48%;top:46px;animation-delay:2s">☁️</span>
+  <button class="fly" style="left:18%;top:62%" onclick="critter('🦋','¡Mira, una mariposa! Hola, mariposita.')">🦋</button><button class="fly" style="left:40%;top:8%;animation-delay:1s" onclick="critter('🐦','¡Pío, pío! Es un pajarito que canta.')">🐦</button>
+  <button class="place" id="p0" style="left:3%;top:30%" onclick="sc(0)"><span class="e">🏫</span><i>Mi centro educativo</i></button>
+  <button class="place" id="p1" style="left:36%;top:50%" onclick="sc(1)"><span class="e">🧸</span><i>Mi aula</i></button>
+  <button class="place" id="p2" style="left:62%;top:60%" onclick="sc(2)"><span class="e">🏠</span><i>Mi familia</i></button>
+  <button class="place" id="p3" style="left:62%;top:14%" onclick="sc(3)"><span class="e">🌳</span><i>Mi comunidad</i></button>
+ </div>
+ <div class="bubble"><span class="av" onclick="chat(this)">🦉</span><p id="btxt"></p><button class="say" onclick="say($('btxt').textContent)">🔊</button></div>
+</section>
+
+<section id="play" class="hide">
+ <button class="back" onclick="home()">🗺️ Volver al pueblito</button><br>
+ <span class="badge" id="badge"></span>
+ <div class="bubble"><span class="av" onclick="chat(this)">🦉</span><p id="nexp"></p><button class="say" onclick="say(cur.exp)">🔊</button></div>
+ <div class="card" id="q">
+  <div class="dots" id="dots"></div>
+  <div class="q" id="qtext"></div>
+  <div class="tools"><button class="say" style="width:60px;height:60px" onclick="say(qs[qi].q)">🔊</button><button class="say" style="width:60px;height:60px;background:#ffb300;box-shadow:0 4px 0 #c98a00" onclick="hint()">💡</button></div>
+  <div class="opts" id="opts" style="margin-top:12px"></div>
+  <div class="fb" id="fb"></div>
+ </div>
+ <div class="card hide" id="done"><div class="big">🎉🏅🎉</div><div class="q">¡Completaste este lugar!</div><button class="go" onclick="home()">🗺️ Volver al pueblito</button></div>
+</section>
+
+<section id="end" class="hide card">
+ <div class="big">🏆🌈🏆</div><div class="q">¡Recorriste todo el pueblito!</div>
+ <div style="font-size:1.6rem">⭐⭐⭐⭐⭐⭐⭐⭐⭐</div>
+ <button class="go" onclick="say('Recorriste todo el pueblito. Conociste tu centro educativo, tu aula, tu familia y tu comunidad. ¡Felicitaciones!')">🔊 Escuchar</button>
+ <button class="go" style="background:#ff5d8f;box-shadow:0 5px 0 #c93a6a" onclick="again()">🔄 Jugar otra vez</button>
+</section>
+</main>
+<script>
+const N=[
+{id:1,t:'Mi centro educativo',c:'#14b8a6',
+ exp:'Este es nuestro centro educativo. Aquí todos nos tratamos con cariño y cuidamos lo que es de todos.',
+ q:[{q:'Llegas al centro educativo. ¿Qué haces?',o:[['👋','Saludo con alegría',1],['🙈','Me escondo',0]]},
+    {q:'Hay un solo juguete y dos niños quieren jugar. ¿Qué hacemos?',o:[['🔄','Jugamos por turnos',1],['😤','Se lo quito',0]]},
+    {q:'Se cayó un papel al piso. ¿Qué hago?',o:[['🗑️','Lo boto al basurero',1],['🙈','Lo dejo ahí',0]]}]},
+{id:2,t:'Mi aula y mi docente',c:'#ec4899',
+ exp:'En el aula, mi docente me guía, me escucha y organiza juegos para que todos aprendamos.',
+ q:[{q:'¿Quién me guía para aprender en el aula?',o:[['👩‍🏫','Mi docente',1],['🧸','Mi osito',0]]},
+    {q:'No sé cómo hacer mi dibujo. ¿Qué hago?',o:[['✋','Levanto la mano y pregunto',1],['😶','No hago nada',0]]},
+    {q:'Mi docente toca la campana para guardar. ¿Qué hacemos?',o:[['🔔','Guardamos todo juntos',1],['🏃','Seguimos corriendo',0]]}]},
+{id:3,t:'Mi familia y mi comunidad',c:'#f59e0b',
+ exp:'En casa mi familia me cuida, y en mi comunidad los vecinos se ayudan. Cuando crezca, también podré ayudar a los demás.',
+ q:[{q:'Cuando crezcas, ¿quién te gustaría ser?',o:[['🩺','Doctor o doctora',1],['🎨','Artista',1],['👩‍🏫','Docente',1],['🚒','Bombero o bombera',1]]},
+    {q:'¿Cómo ayudamos a nuestra comunidad?',o:[['🌷','Cuidando parques y calles',1],['🗑️','Ensuciando el parque',0]]},
+    {q:'¿Quién me abraza y me cuida en casa?',o:[['🤗','Mi familia',1],['🎮','Un videojuego',0]]}]}
+];
+const SC=[{n:1,t:'Mi centro educativo',m:'Vamos al centro educativo.'},{n:2,t:'Mi aula',m:'Vamos al aula.'},{n:3,t:'Mi familia',m:'Vamos a casa, con mi familia.'},{n:3,t:'Mi comunidad',m:'Vamos a la comunidad.'}];
+let busy=0,cur,qs,qi,stars=0,doneN={},got={};
+const $=i=>document.getElementById(i),SS=window.speechSynthesis;
+function pickVoice(){const vs=SS.getVoices().filter(v=>/^es/i.test(v.lang));
+ const f=/sabina|helena|paulina|monica|mónica|laura|elena|dalia|salome|salomé|camila|lucia|lucía|sofia|sofía|female|mujer|google español|google es/i,m=/jorge|pablo|raul|raúl|diego|carlos|alvaro|álvaro|male|hombre/i;
+ return vs.find(v=>f.test(v.name)&&!m.test(v.name))||vs.find(v=>!m.test(v.name))||vs[0]}
+function say(t,q){try{if(!SS)return;if(!q)SS.cancel();const u=new SpeechSynthesisUtterance(t),v=pickVoice();if(v)u.voice=v;u.lang=v?v.lang:'es-ES';u.rate=.9;u.pitch=1.3;SS.speak(u)}catch(e){}}
+function show(id){['home','play','end'].forEach(x=>$(x).classList.toggle('hide',x!==id));window.scrollTo(0,0)}
+function upd(){$('stars').textContent='⭐'.repeat(stars)+'☆'.repeat(9-stars)}
+let AC;function tone(f,d,t,w){try{const a=AC||(AC=new(window.AudioContext||window.webkitAudioContext)()),o=a.createOscillator(),g=a.createGain();o.type=t||'sine';o.frequency.value=f;o.connect(g);g.connect(a.destination);const s0=a.currentTime+(w||0);g.gain.setValueAtTime(.18,s0);g.gain.exponentialRampToValueAtTime(.001,s0+d);o.start(s0);o.stop(s0+d)}catch(e){}}
+const sfxOk=()=>[660,880,1175].forEach((f,i)=>tone(f,.18,'sine',i*.1)),sfxNo=()=>tone(220,.3,'triangle'),sfxGo=()=>tone(520,.12,'square'),sfxWin=()=>[523,659,784,1047,1319].forEach((f,i)=>tone(f,.22,'sine',i*.12));
+const CH=['¡Hola! Soy Silvia, tu amiga. ¡Me encanta jugar contigo!','¡Tú puedes! Toca los dibujos.','Cuando tengas una duda, pregunta a tu docente.','En el centro educativo todos nos cuidamos.','¡Qué bien lo estás haciendo!'];let ci=0;
+function chat(el){el.classList.remove('jump');void el.offsetWidth;el.classList.add('jump');sfxGo();say(CH[ci++%CH.length])}
+function critter(e,t){sfxGo();boom(8);say(t)}
+function hint(){say('Te doy una pista. Mira cuál se mueve.');document.querySelectorAll('#opts .opt').forEach(b=>{if(qs[qi].o[b.dataset.k][2])b.classList.add('pulse')})}
+function boom(n){n=n||22;const E=['⭐','🎈','🎉','✨','🌈','💜'];for(let i=0;i<n;i++){const x=document.createElement('span');x.className='conf';x.textContent=E[i%6];x.style.left=Math.random()*95+'%';x.style.animationDelay=Math.random()*.5+'s';document.body.appendChild(x);setTimeout(()=>x.remove(),2600)}}
+function tell(t){$('btxt').textContent=t;say(t)}
+function home(){try{SS&&SS.cancel()}catch(e){}
+ SC.forEach((c,i)=>{const b=$('p'+i);b.classList.toggle('used',!!doneN[c.n]);b.querySelector('i').textContent=c.t+(doneN[c.n]?' ✅':'')});
+ if(Object.keys(doneN).length===3){show('end');say('Recorriste todo el pueblito. ¡Felicitaciones!');return}
+ show('home');$('btxt').textContent=Object.keys(doneN).length?'¡Muy bien! Elige otro lugar del pueblito.':'¡Hola, amiguito! Soy Silvia. Toca un lugar del pueblito y vamos a jugar.'}
+function sc(i){const c=SC[i];
+ if(doneN[c.n]){tell('Ya jugaste en '+c.t+'. ¡Elige otro lugar del pueblito!');return}
+ if(busy)return;busy=1;const b=$('p'+i);b.classList.add('pop');sfxGo();setTimeout(()=>{busy=0;b.classList.remove('pop');openN(c.n-1,c.m+' ')},380)}
+function openN(i,pre){cur=N[i];qs=cur.q;qi=0;show('play');
+ const b=$('badge');b.textContent='Nodo '+cur.id+' · '+cur.t;b.style.background=cur.c;
+ $('nexp').textContent=cur.exp;$('done').classList.add('hide');$('q').classList.remove('hide');ask(true);say((pre||'')+cur.exp)}
+function ask(first){const q=qs[qi];$('qtext').textContent=q.q;$('fb').textContent='';
+ $('dots').innerHTML=qs.map((_,i)=>`<span class="d ${i<qi?'on':i==qi?'cur':''}"></span>`).join('');
+ $('opts').innerHTML=q.o.map((o,k)=>k).sort(()=>Math.random()-.5).map(k=>`<button class="opt" data-k="${k}" onclick="pick(${k},this)"><span class="e">${q.o[k][0]}</span>${q.o[k][1]}</button>`).join('');
+ say(q.q,first)}
+function pick(k,b){const o=qs[qi].o[k],key=cur.id+'-'+qi;
+ if(o[2]){b.classList.add('ok');if(!got[key]){got[key]=1;stars++;upd()}
+  $('fb').textContent='🌟 ¡Muy bien!';boom();sfxOk();say(o[1]+'. ¡Muy bien!');
+  document.querySelectorAll('#opts .opt').forEach(x=>{x.disabled=true;x.classList.remove('pulse')});
+  setTimeout(()=>{qi++;if(qi<qs.length)ask(false);else{doneN[cur.id]=1;$('q').classList.add('hide');$('done').classList.remove('hide');boom();sfxWin();say('¡Completaste este lugar! Vuelve al pueblito y elige otro.')}},2600)}
+ else{b.classList.add('no');$('fb').textContent='💛 Mmm, prueba con otra';sfxNo();try{navigator.vibrate&&navigator.vibrate(80)}catch(e){}say('Mmm, prueba con otra');setTimeout(()=>b.classList.remove('no'),500)}}
+function again(){stars=0;doneN={};got={};upd();home()}
+upd();home();
+</script></body></html>
