@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mi Pueblito de Aprender</title>
+<title>Ecosistema Educativo</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--v:#7c4dff;--vd:#5a32d6;--ink:#2b1b5e}
@@ -51,7 +51,7 @@ main{max-width:520px;margin:0 auto;padding:10px 12px 24px}
 @keyframes glide{to{transform:translate(70px,-26px) rotate(8deg)}}
 .tools{display:flex;justify-content:center;gap:14px}
 </style></head><body><main>
-<div class="top"><b>🏘️ Mi Pueblito de Aprender</b><span id="stars"></span></div>
+<div class="top"><b>🌎 Ecosistema Educativo</b><small style="display:block;font-weight:600;font-size:.95rem">Mi mundo para aprender y crecer</small><span id="stars"></span></div>
 
 <section id="home">
  <div class="map">
@@ -66,7 +66,7 @@ main{max-width:520px;margin:0 auto;padding:10px 12px 24px}
 </section>
 
 <section id="play" class="hide">
- <button class="back" onclick="home()">🗺️ Volver al pueblito</button><br>
+ <button class="back" onclick="home()">🗺️ Volver a mi mundo</button><br>
  <span class="badge" id="badge"></span>
  <div class="bubble"><span class="av" onclick="chat(this)">🦉</span><p id="nexp"></p><button class="say" onclick="say(cur.exp)">🔊</button></div>
  <div class="card" id="q">
@@ -76,13 +76,13 @@ main{max-width:520px;margin:0 auto;padding:10px 12px 24px}
   <div class="opts" id="opts" style="margin-top:12px"></div>
   <div class="fb" id="fb"></div>
  </div>
- <div class="card hide" id="done"><div class="big">🎉🏅🎉</div><div class="q">¡Completaste este lugar!</div><button class="go" onclick="home()">🗺️ Volver al pueblito</button></div>
+ <div class="card hide" id="done"><div class="big">🎉🏅🎉</div><div class="q">¡Completaste este lugar!</div><button class="go" onclick="home()">🗺️ Volver a mi mundo</button></div>
 </section>
 
 <section id="end" class="hide card">
- <div class="big">🏆🌈🏆</div><div class="q">¡Recorriste todo el pueblito!</div>
+ <div class="big">🏆🌈🏆</div><div class="q">¡Recorriste todo tu mundo!</div>
  <div style="font-size:1.6rem">⭐⭐⭐⭐⭐⭐⭐⭐⭐</div>
- <button class="go" onclick="say('Recorriste todo el pueblito. Conociste tu centro educativo, tu aula, tu familia y tu comunidad. ¡Felicitaciones!')">🔊 Escuchar</button>
+ <button class="go" onclick="say('Recorriste todo tu mundo. Conociste tu centro educativo, tu aula, tu familia y tu comunidad. ¡Felicitaciones!')">🔊 Escuchar</button>
  <button class="go" style="background:#ff5d8f;box-shadow:0 5px 0 #c93a6a" onclick="again()">🔄 Jugar otra vez</button>
 </section>
 </main>
@@ -123,10 +123,10 @@ function boom(n){n=n||22;const E=['⭐','🎈','🎉','✨','🌈','💜'];for(l
 function tell(t){$('btxt').textContent=t;say(t)}
 function home(){try{SS&&SS.cancel()}catch(e){}
  SC.forEach((c,i)=>{const b=$('p'+i);b.classList.toggle('used',!!doneN[c.n]);b.querySelector('i').textContent=c.t+(doneN[c.n]?' ✅':'')});
- if(Object.keys(doneN).length===3){show('end');say('Recorriste todo el pueblito. ¡Felicitaciones!');return}
- show('home');$('btxt').textContent=Object.keys(doneN).length?'¡Muy bien! Elige otro lugar del pueblito.':'¡Hola, amiguito! Soy Silvia. Toca un lugar del pueblito y vamos a jugar.'}
+ if(Object.keys(doneN).length===3){show('end');say('Recorriste todo tu mundo. ¡Felicitaciones!');return}
+ show('home');$('btxt').textContent=Object.keys(doneN).length?'¡Muy bien! Elige otro lugar de tu mundo.':'¡Hola, amiguito! Soy Silvia. Toca un lugar de tu mundo y vamos a jugar.'}
 function sc(i){const c=SC[i];
- if(doneN[c.n]){tell('Ya jugaste en '+c.t+'. ¡Elige otro lugar del pueblito!');return}
+ if(doneN[c.n]){tell('Ya jugaste en '+c.t+'. ¡Elige otro lugar de tu mundo!');return}
  if(busy)return;busy=1;const b=$('p'+i);b.classList.add('pop');sfxGo();setTimeout(()=>{busy=0;b.classList.remove('pop');openN(c.n-1,c.m+' ')},380)}
 function openN(i,pre){cur=N[i];qs=cur.q;qi=0;show('play');
  const b=$('badge');b.textContent='Nodo '+cur.id+' · '+cur.t;b.style.background=cur.c;
@@ -139,7 +139,7 @@ function pick(k,b){const o=qs[qi].o[k],key=cur.id+'-'+qi;
  if(o[2]){b.classList.add('ok');if(!got[key]){got[key]=1;stars++;upd()}
   $('fb').textContent='🌟 ¡Muy bien!';boom();sfxOk();say(o[1]+'. ¡Muy bien!');
   document.querySelectorAll('#opts .opt').forEach(x=>{x.disabled=true;x.classList.remove('pulse')});
-  setTimeout(()=>{qi++;if(qi<qs.length)ask(false);else{doneN[cur.id]=1;$('q').classList.add('hide');$('done').classList.remove('hide');boom();sfxWin();say('¡Completaste este lugar! Vuelve al pueblito y elige otro.')}},2600)}
+  setTimeout(()=>{qi++;if(qi<qs.length)ask(false);else{doneN[cur.id]=1;$('q').classList.add('hide');$('done').classList.remove('hide');boom();sfxWin();say('¡Completaste este lugar! Vuelve a mi mundo y elige otro.')}},2600)}
  else{b.classList.add('no');$('fb').textContent='💛 Mmm, prueba con otra';sfxNo();try{navigator.vibrate&&navigator.vibrate(80)}catch(e){}say('Mmm, prueba con otra');setTimeout(()=>b.classList.remove('no'),500)}}
 function again(){stars=0;doneN={};got={};upd();home()}
 upd();home();
