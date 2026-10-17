@@ -50,6 +50,17 @@ main{max-width:520px;margin:0 auto;padding:10px 12px 24px}
 .fly{position:absolute;z-index:2;background:none;border:0;box-shadow:none;font-size:2.4rem;cursor:pointer;width:auto;min-height:0;padding:2px;animation:glide 7s ease-in-out infinite alternate}
 @keyframes glide{to{transform:translate(70px,-26px) rotate(8deg)}}
 .tools{display:flex;justify-content:center;gap:14px}
+.map{height:420px}
+.place .e{font-size:5.4rem}.place i{font-size:1.15rem;font-weight:700}
+.opts{grid-template-columns:1fr 1fr}
+.opt{flex-direction:column;justify-content:center;text-align:center;gap:2px;min-height:190px;font-size:1.5rem;padding:10px 6px}
+.opt .e{font-size:5.6rem;line-height:1.05}
+.opt:last-child:nth-child(odd){grid-column:1/-1}
+.qe{font-size:5rem;line-height:1.1;margin:4px 0}
+.q{font-size:1.7rem}
+.bubble p{font-size:1.25rem}
+.say{width:64px;height:64px;font-size:1.8rem}
+.big{font-size:5rem}
 </style></head><body><main>
 <div class="top"><b>🌎 Ecosistema Educativo</b><small style="display:block;font-weight:600;font-size:.95rem">Mi mundo para aprender y crecer</small><span id="stars"></span></div>
 
@@ -66,45 +77,42 @@ main{max-width:520px;margin:0 auto;padding:10px 12px 24px}
 </section>
 
 <section id="play" class="hide">
- <button class="back" onclick="home()">🗺️ Volver a mi mundo</button><br>
+ <button class="back" onclick="home()">🗺️ Volver</button><br>
  <span class="badge" id="badge"></span>
  <div class="bubble"><span class="av" onclick="chat(this)">🦉</span><p id="nexp"></p><button class="say" onclick="say(cur.exp)">🔊</button></div>
  <div class="card" id="q">
   <div class="dots" id="dots"></div>
-  <div class="q" id="qtext"></div>
+  <div class="qe" id="qe"></div><div class="q" id="qtext"></div>
   <div class="tools"><button class="say" style="width:60px;height:60px" onclick="say(qs[qi].q)">🔊</button><button class="say" style="width:60px;height:60px;background:#ffb300;box-shadow:0 4px 0 #c98a00" onclick="hint()">💡</button></div>
   <div class="opts" id="opts" style="margin-top:12px"></div>
   <div class="fb" id="fb"></div>
  </div>
- <div class="card hide" id="done"><div class="big">🎉🏅🎉</div><div class="q">¡Completaste este lugar!</div><button class="go" onclick="home()">🗺️ Volver a mi mundo</button></div>
+ <div class="card hide" id="done"><div class="big">🎉🏅🎉</div><div class="q">¡Lo lograste!</div><button class="go" onclick="home()">🗺️ Volver</button></div>
 </section>
 
 <section id="end" class="hide card">
- <div class="big">🏆🌈🏆</div><div class="q">¡Recorriste todo tu mundo!</div>
+ <div class="big">🏆🌈🏆</div><div class="q">¡Lo lograste!</div>
  <div style="font-size:1.6rem">⭐⭐⭐⭐⭐⭐⭐⭐⭐</div>
- <button class="go" onclick="say('Recorriste todo tu mundo. Conociste tu centro educativo, tu aula, tu familia y tu comunidad. ¡Felicitaciones!')">🔊 Escuchar</button>
+ <button class="go" onclick="say('¡Lo lograste! ¡Felicitaciones!')">🔊 Escuchar</button>
  <button class="go" style="background:#ff5d8f;box-shadow:0 5px 0 #c93a6a" onclick="again()">🔄 Jugar otra vez</button>
 </section>
 </main>
 <script>
 const N=[
-{id:1,t:'Mi centro educativo',c:'#14b8a6',
- exp:'Este es nuestro centro educativo. Aquí todos nos tratamos con cariño y cuidamos lo que es de todos.',
- q:[{q:'Llegas al centro educativo. ¿Qué haces?',o:[['👋','Saludo con alegría',1],['🙈','Me escondo',0]]},
-    {q:'Hay un solo juguete y dos niños quieren jugar. ¿Qué hacemos?',o:[['🔄','Jugamos por turnos',1],['😤','Se lo quito',0]]},
-    {q:'Se cayó un papel al piso. ¿Qué hago?',o:[['🗑️','Lo boto al basurero',1],['🙈','Lo dejo ahí',0]]}]},
-{id:2,t:'Mi aula y mi docente',c:'#ec4899',
- exp:'En el aula, mi docente me guía, me escucha y organiza juegos para que todos aprendamos.',
- q:[{q:'¿Quién me guía para aprender en el aula?',o:[['👩‍🏫','Mi docente',1],['🧸','Mi osito',0]]},
-    {q:'No sé cómo hacer mi dibujo. ¿Qué hago?',o:[['✋','Levanto la mano y pregunto',1],['😶','No hago nada',0]]},
-    {q:'Mi docente toca la campana para guardar. ¿Qué hacemos?',o:[['🔔','Guardamos todo juntos',1],['🏃','Seguimos corriendo',0]]}]},
-{id:3,t:'Mi familia y mi comunidad',c:'#f59e0b',
- exp:'En casa mi familia me cuida, y en mi comunidad los vecinos se ayudan. Cuando crezca, también podré ayudar a los demás.',
- q:[{q:'Cuando crezcas, ¿quién te gustaría ser?',o:[['🩺','Doctor o doctora',1],['🎨','Artista',1],['👩‍🏫','Docente',1],['🚒','Bombero o bombera',1]]},
-    {q:'¿Cómo ayudamos a nuestra comunidad?',o:[['🌷','Cuidando parques y calles',1],['🗑️','Ensuciando el parque',0]]},
-    {q:'¿Quién me abraza y me cuida en casa?',o:[['🤗','Mi familia',1],['🎮','Un videojuego',0]]}]}
+{id:1,t:'Mi centro educativo',c:'#14b8a6',exp:'Mi centro educativo. Aquí jugamos y nos cuidamos.',
+ q:[{e:'🧃',q:'¿Dónde va la basura?',o:[['🗑️','Tacho',1],['🎒','Mochila',0]]},
+    {e:'🧒🧒',q:'¿Cómo saludamos?',o:[['😊','Sonrisa',1],['😠','Enojo',0]]},
+    {e:'🍎',q:'¿De qué color es?',o:[['🔴','Rojo',1],['🔵','Azul',0]]}]},
+{id:2,t:'Mi aula',c:'#ec4899',exp:'Mi aula. Mi docente me ayuda a aprender.',
+ q:[{e:'📚',q:'¿Quién me enseña?',o:[['👩‍🏫','Docente',1],['🧸','Osito',0]]},
+    {e:'🍎 + 🍎🍎',q:'¿Cuántas manzanas?',o:[['3️⃣','Tres',1],['2️⃣','Dos',0],['5️⃣','Cinco',0]]},
+    {e:'🔔',q:'Suena la campana',o:[['🧺','Guardar',1],['🏃','Correr',0]]}]},
+{id:3,t:'Mi familia y mi comunidad',c:'#f59e0b',exp:'Mi familia y mi comunidad me cuidan. Cuando crezca, ayudaré.',
+ q:[{e:'⭐',q:'¿Qué quieres ser?',o:[['🩺','Doctora',1],['🎨','Artista',1],['👩‍🏫','Docente',1],['🚒','Bombero',1]]},
+    {e:'🏠',q:'¿Quién me cuida?',o:[['👨‍👩‍👧','Familia',1],['🎮','Juego',0]]},
+    {e:'🌳',q:'¿Cómo cuidamos el parque?',o:[['🌷','Cuidar',1],['🗑️','Ensuciar',0]]}]}
 ];
-const SC=[{n:1,t:'Mi centro educativo',m:'Vamos al centro educativo.'},{n:2,t:'Mi aula',m:'Vamos al aula.'},{n:3,t:'Mi familia',m:'Vamos a casa, con mi familia.'},{n:3,t:'Mi comunidad',m:'Vamos a la comunidad.'}];
+const SC=[{n:1,t:'Centro educativo',m:'Centro educativo.'},{n:2,t:'Aula',m:'Aula.'},{n:3,t:'Familia',m:'Familia.'},{n:3,t:'Comunidad',m:'Comunidad.'}];
 let busy=0,cur,qs,qi,stars=0,doneN={},got={};
 const $=i=>document.getElementById(i),SS=window.speechSynthesis;
 function pickVoice(){const vs=SS.getVoices().filter(v=>/^es/i.test(v.lang));
@@ -115,32 +123,32 @@ function show(id){['home','play','end'].forEach(x=>$(x).classList.toggle('hide',
 function upd(){$('stars').textContent='⭐'.repeat(stars)+'☆'.repeat(9-stars)}
 let AC;function tone(f,d,t,w){try{const a=AC||(AC=new(window.AudioContext||window.webkitAudioContext)()),o=a.createOscillator(),g=a.createGain();o.type=t||'sine';o.frequency.value=f;o.connect(g);g.connect(a.destination);const s0=a.currentTime+(w||0);g.gain.setValueAtTime(.18,s0);g.gain.exponentialRampToValueAtTime(.001,s0+d);o.start(s0);o.stop(s0+d)}catch(e){}}
 const sfxOk=()=>[660,880,1175].forEach((f,i)=>tone(f,.18,'sine',i*.1)),sfxNo=()=>tone(220,.3,'triangle'),sfxGo=()=>tone(520,.12,'square'),sfxWin=()=>[523,659,784,1047,1319].forEach((f,i)=>tone(f,.22,'sine',i*.12));
-const CH=['¡Hola! Soy Silvia, tu amiga. ¡Me encanta jugar contigo!','¡Tú puedes! Toca los dibujos.','Cuando tengas una duda, pregunta a tu docente.','En el centro educativo todos nos cuidamos.','¡Qué bien lo estás haciendo!'];let ci=0;
+const CH=['¡Hola! Soy Silvia.','¡Tú puedes!','¡Muy bien!','Toca los dibujos.'];let ci=0;
 function chat(el){el.classList.remove('jump');void el.offsetWidth;el.classList.add('jump');sfxGo();say(CH[ci++%CH.length])}
 function critter(e,t){sfxGo();boom(8);say(t)}
-function hint(){say('Te doy una pista. Mira cuál se mueve.');document.querySelectorAll('#opts .opt').forEach(b=>{if(qs[qi].o[b.dataset.k][2])b.classList.add('pulse')})}
+function hint(){say('Mira cuál se mueve.');document.querySelectorAll('#opts .opt').forEach(b=>{if(qs[qi].o[b.dataset.k][2])b.classList.add('pulse')})}
 function boom(n){n=n||22;const E=['⭐','🎈','🎉','✨','🌈','💜'];for(let i=0;i<n;i++){const x=document.createElement('span');x.className='conf';x.textContent=E[i%6];x.style.left=Math.random()*95+'%';x.style.animationDelay=Math.random()*.5+'s';document.body.appendChild(x);setTimeout(()=>x.remove(),2600)}}
 function tell(t){$('btxt').textContent=t;say(t)}
 function home(){try{SS&&SS.cancel()}catch(e){}
  SC.forEach((c,i)=>{const b=$('p'+i);b.classList.toggle('used',!!doneN[c.n]);b.querySelector('i').textContent=c.t+(doneN[c.n]?' ✅':'')});
- if(Object.keys(doneN).length===3){show('end');say('Recorriste todo tu mundo. ¡Felicitaciones!');return}
- show('home');$('btxt').textContent=Object.keys(doneN).length?'¡Muy bien! Elige otro lugar de tu mundo.':'¡Hola, amiguito! Soy Silvia. Toca un lugar de tu mundo y vamos a jugar.'}
+ if(Object.keys(doneN).length===3){show('end');say('¡Lo lograste! ¡Felicitaciones!');return}
+ show('home');$('btxt').textContent=Object.keys(doneN).length?'¡Muy bien! Toca otro dibujo. 👆':'¡Hola! Soy Silvia. Toca un dibujo. 👆'}
 function sc(i){const c=SC[i];
- if(doneN[c.n]){tell('Ya jugaste en '+c.t+'. ¡Elige otro lugar de tu mundo!');return}
+ if(doneN[c.n]){tell('Ya jugaste aquí. ¡Toca otro dibujo!');return}
  if(busy)return;busy=1;const b=$('p'+i);b.classList.add('pop');sfxGo();setTimeout(()=>{busy=0;b.classList.remove('pop');openN(c.n-1,c.m+' ')},380)}
 function openN(i,pre){cur=N[i];qs=cur.q;qi=0;show('play');
  const b=$('badge');b.textContent='Nodo '+cur.id+' · '+cur.t;b.style.background=cur.c;
  $('nexp').textContent=cur.exp;$('done').classList.add('hide');$('q').classList.remove('hide');ask(true);say((pre||'')+cur.exp)}
-function ask(first){const q=qs[qi];$('qtext').textContent=q.q;$('fb').textContent='';
+function ask(first){const q=qs[qi];$('qtext').textContent=q.q;$('qe').textContent=q.e||'';$('fb').textContent='';
  $('dots').innerHTML=qs.map((_,i)=>`<span class="d ${i<qi?'on':i==qi?'cur':''}"></span>`).join('');
- $('opts').innerHTML=q.o.map((o,k)=>k).sort(()=>Math.random()-.5).map(k=>`<button class="opt" data-k="${k}" onclick="pick(${k},this)"><span class="e">${q.o[k][0]}</span>${q.o[k][1]}</button>`).join('');
+ $('opts').innerHTML=q.o.map((o,k)=>k).sort(()=>Math.random()-.5).map(k=>`<button class="opt" data-k="${k}" onclick="pick(${k},this)"><span class="e">${q.o[k][0]}</span><span class="l">${q.o[k][1]}</span></button>`).join('');
  say(q.q,first)}
 function pick(k,b){const o=qs[qi].o[k],key=cur.id+'-'+qi;
  if(o[2]){b.classList.add('ok');if(!got[key]){got[key]=1;stars++;upd()}
-  $('fb').textContent='🌟 ¡Muy bien!';boom();sfxOk();say(o[1]+'. ¡Muy bien!');
+  $('fb').textContent='🌟';boom();sfxOk();say(o[1]+'. ¡Muy bien!');
   document.querySelectorAll('#opts .opt').forEach(x=>{x.disabled=true;x.classList.remove('pulse')});
-  setTimeout(()=>{qi++;if(qi<qs.length)ask(false);else{doneN[cur.id]=1;$('q').classList.add('hide');$('done').classList.remove('hide');boom();sfxWin();say('¡Completaste este lugar! Vuelve a mi mundo y elige otro.')}},2600)}
- else{b.classList.add('no');$('fb').textContent='💛 Mmm, prueba con otra';sfxNo();try{navigator.vibrate&&navigator.vibrate(80)}catch(e){}say('Mmm, prueba con otra');setTimeout(()=>b.classList.remove('no'),500)}}
+  setTimeout(()=>{qi++;if(qi<qs.length)ask(false);else{doneN[cur.id]=1;$('q').classList.add('hide');$('done').classList.remove('hide');boom();sfxWin();say('¡Lo lograste! Vuelve a mi mundo y elige otro.')}},2600)}
+ else{b.classList.add('no');$('fb').textContent='💛 Otra vez';sfxNo();try{navigator.vibrate&&navigator.vibrate(80)}catch(e){}say('Otra vez');setTimeout(()=>b.classList.remove('no'),500)}}
 function again(){stars=0;doneN={};got={};upd();home()}
 upd();home();
 </script></body></html>
