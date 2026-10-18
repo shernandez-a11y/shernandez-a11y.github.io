@@ -93,21 +93,21 @@ main{max-width:520px;margin:0 auto;padding:10px 12px 24px}
 <section id="end" class="hide card">
  <div class="big">🏆🌈🏆</div><div class="q">¡Lo lograste!</div>
  <div style="font-size:1.6rem">⭐⭐⭐⭐⭐⭐⭐⭐⭐</div>
- <button class="go" onclick="say('¡Lo lograste! ¡Felicitaciones!')">🔊 Escuchar</button>
+ <button class="go" onclick="say('¡Lo lograste! ¡Felicitaciones! ¡Eres genial!')">🔊 Escuchar</button>
  <button class="go" style="background:#ff5d8f;box-shadow:0 5px 0 #c93a6a" onclick="again()">🔄 Jugar otra vez</button>
 </section>
 </main>
 <script>
 const N=[
-{id:1,t:'Mi centro educativo',c:'#14b8a6',exp:'Mi centro educativo. Aquí jugamos y nos cuidamos.',
+{id:1,t:'Mi centro educativo',c:'#14b8a6',exp:'¡Mi centro educativo! ¡Aquí jugamos y nos cuidamos!',
  q:[{e:'🧃',q:'¿Dónde va la basura?',o:[['🗑️','Tacho',1],['🎒','Mochila',0]]},
     {e:'🧒🧒',q:'¿Cómo saludamos?',o:[['😊','Sonrisa',1],['😠','Enojo',0]]},
     {e:'🍎',q:'¿De qué color es?',o:[['🔴','Rojo',1],['🔵','Azul',0]]}]},
-{id:2,t:'Mi aula',c:'#ec4899',exp:'Mi aula. Mi docente me ayuda a aprender.',
- q:[{e:'📚',q:'¿Quién me enseña?',o:[['👩‍🏫','Docente',1],['🧸','Osito',0]]},
+{id:2,t:'Mi aula',c:'#ec4899',exp:'¡Mi aula! ¡Mi docente me ayuda a aprender!',
+ q:[{e:'👩‍🏫',q:'¿Qué hacemos en el aula?',o:[['🎨','Pintar',1],['📖','Leer',1],['🚗','Manejar',0]]},
     {e:'🍎 + 🍎🍎',q:'¿Cuántas manzanas?',o:[['3️⃣','Tres',1],['2️⃣','Dos',0],['5️⃣','Cinco',0]]},
-    {e:'🔔',q:'Suena la campana',o:[['🧺','Guardar',1],['🏃','Correr',0]]}]},
-{id:3,t:'Mi familia y mi comunidad',c:'#f59e0b',exp:'Mi familia y mi comunidad me cuidan. Cuando crezca, ayudaré.',
+    {e:'🔔',q:'Suena la campana',o:[['🎒','Mochila',1],['🏃','Correr',0]]}]},
+{id:3,t:'Mi familia y mi comunidad',c:'#f59e0b',exp:'¡Mi familia y mi comunidad me cuidan! ¡Cuando crezca, ayudaré!',
  q:[{e:'⭐',q:'¿Qué quieres ser?',o:[['🩺','Doctora',1],['🎨','Artista',1],['👩‍🏫','Docente',1],['🚒','Bombero',1]]},
     {e:'🏠',q:'¿Quién me cuida?',o:[['👨‍👩‍👧','Familia',1],['🎮','Juego',0]]},
     {e:'🌳',q:'¿Cómo cuidamos el parque?',o:[['🌷','Cuidar',1],['🗑️','Ensuciar',0]]}]}
@@ -118,23 +118,23 @@ const $=i=>document.getElementById(i),SS=window.speechSynthesis;
 function pickVoice(){const vs=SS.getVoices().filter(v=>/^es/i.test(v.lang));
  const f=/sabina|helena|paulina|monica|mónica|laura|elena|dalia|salome|salomé|camila|lucia|lucía|sofia|sofía|female|mujer|google español|google es/i,m=/jorge|pablo|raul|raúl|diego|carlos|alvaro|álvaro|male|hombre/i;
  return vs.find(v=>f.test(v.name)&&!m.test(v.name))||vs.find(v=>!m.test(v.name))||vs[0]}
-function say(t,q){try{if(!SS)return;if(!q)SS.cancel();const u=new SpeechSynthesisUtterance(t),v=pickVoice();if(v)u.voice=v;u.lang=v?v.lang:'es-ES';u.rate=.9;u.pitch=1.3;SS.speak(u)}catch(e){}}
+function say(t,q){try{if(!SS)return;if(!q)SS.cancel();const u=new SpeechSynthesisUtterance(t),v=pickVoice();if(v)u.voice=v;u.lang=v?v.lang:'es-ES';u.rate=1.05;u.pitch=1.6;SS.speak(u)}catch(e){}}
 function show(id){['home','play','end'].forEach(x=>$(x).classList.toggle('hide',x!==id));window.scrollTo(0,0)}
 function upd(){$('stars').textContent='⭐'.repeat(stars)+'☆'.repeat(9-stars)}
 let AC;function tone(f,d,t,w){try{const a=AC||(AC=new(window.AudioContext||window.webkitAudioContext)()),o=a.createOscillator(),g=a.createGain();o.type=t||'sine';o.frequency.value=f;o.connect(g);g.connect(a.destination);const s0=a.currentTime+(w||0);g.gain.setValueAtTime(.18,s0);g.gain.exponentialRampToValueAtTime(.001,s0+d);o.start(s0);o.stop(s0+d)}catch(e){}}
 const sfxOk=()=>[660,880,1175].forEach((f,i)=>tone(f,.18,'sine',i*.1)),sfxNo=()=>tone(220,.3,'triangle'),sfxGo=()=>tone(520,.12,'square'),sfxWin=()=>[523,659,784,1047,1319].forEach((f,i)=>tone(f,.22,'sine',i*.12));
-const CH=['¡Hola! Soy Silvia.','¡Tú puedes!','¡Muy bien!','Toca los dibujos.'];let ci=0;
+const CH=['¡Hola! ¡Soy Silvia!','¡Tú puedes!','¡Eres genial!','¡Toca los dibujos!'];let ci=0;
 function chat(el){el.classList.remove('jump');void el.offsetWidth;el.classList.add('jump');sfxGo();say(CH[ci++%CH.length])}
 function critter(e,t){sfxGo();boom(8);say(t)}
-function hint(){say('Mira cuál se mueve.');document.querySelectorAll('#opts .opt').forEach(b=>{if(qs[qi].o[b.dataset.k][2])b.classList.add('pulse')})}
+function hint(){say('¡Mira! ¡Cuál se mueve!');document.querySelectorAll('#opts .opt').forEach(b=>{if(qs[qi].o[b.dataset.k][2])b.classList.add('pulse')})}
 function boom(n){n=n||22;const E=['⭐','🎈','🎉','✨','🌈','💜'];for(let i=0;i<n;i++){const x=document.createElement('span');x.className='conf';x.textContent=E[i%6];x.style.left=Math.random()*95+'%';x.style.animationDelay=Math.random()*.5+'s';document.body.appendChild(x);setTimeout(()=>x.remove(),2600)}}
 function tell(t){$('btxt').textContent=t;say(t)}
 function home(){try{SS&&SS.cancel()}catch(e){}
  SC.forEach((c,i)=>{const b=$('p'+i);b.classList.toggle('used',!!doneN[c.n]);b.querySelector('i').textContent=c.t+(doneN[c.n]?' ✅':'')});
- if(Object.keys(doneN).length===3){show('end');say('¡Lo lograste! ¡Felicitaciones!');return}
- show('home');$('btxt').textContent=Object.keys(doneN).length?'¡Muy bien! Toca otro dibujo. 👆':'¡Hola! Soy Silvia. Toca un dibujo. 👆'}
+ if(Object.keys(doneN).length===3){show('end');say('¡Lo lograste! ¡Felicitaciones! ¡Eres genial!');return}
+ show('home');$('btxt').textContent=Object.keys(doneN).length?'¡Genial! ¡Toca otro dibujo! 👆':'¡Hola! ¡Soy Silvia! ¡Toca un dibujo! 👆'}
 function sc(i){const c=SC[i];
- if(doneN[c.n]){tell('Ya jugaste aquí. ¡Toca otro dibujo!');return}
+ if(doneN[c.n]){tell('¡Ya jugaste aquí! ¡Toca otro dibujo!');return}
  if(busy)return;busy=1;const b=$('p'+i);b.classList.add('pop');sfxGo();setTimeout(()=>{busy=0;b.classList.remove('pop');openN(c.n-1,c.m+' ')},380)}
 function openN(i,pre){cur=N[i];qs=cur.q;qi=0;show('play');
  const b=$('badge');b.textContent='Nodo '+cur.id+' · '+cur.t;b.style.background=cur.c;
@@ -145,10 +145,10 @@ function ask(first){const q=qs[qi];$('qtext').textContent=q.q;$('qe').textConten
  say(q.q,first)}
 function pick(k,b){const o=qs[qi].o[k],key=cur.id+'-'+qi;
  if(o[2]){b.classList.add('ok');if(!got[key]){got[key]=1;stars++;upd()}
-  $('fb').textContent='🌟';boom();sfxOk();say(o[1]+'. ¡Muy bien!');
+  $('fb').textContent='🌟';boom();sfxOk();say(o[1]+'. '+['¡Muy bien!','¡Genial!','¡Excelente!','¡Bravo!','¡Qué lindo!'][Math.floor(Math.random()*5)]);
   document.querySelectorAll('#opts .opt').forEach(x=>{x.disabled=true;x.classList.remove('pulse')});
-  setTimeout(()=>{qi++;if(qi<qs.length)ask(false);else{doneN[cur.id]=1;$('q').classList.add('hide');$('done').classList.remove('hide');boom();sfxWin();say('¡Lo lograste! Vuelve a mi mundo y elige otro.')}},2600)}
- else{b.classList.add('no');$('fb').textContent='💛 Otra vez';sfxNo();try{navigator.vibrate&&navigator.vibrate(80)}catch(e){}say('Otra vez');setTimeout(()=>b.classList.remove('no'),500)}}
+  setTimeout(()=>{qi++;if(qi<qs.length)ask(false);else{doneN[cur.id]=1;$('q').classList.add('hide');$('done').classList.remove('hide');boom();sfxWin();say('¡Lo lograste! ¡Bravo! ¡Toca otro dibujo!')}},2600)}
+ else{b.classList.add('no');$('fb').textContent='💛 Otra vez';sfxNo();try{navigator.vibrate&&navigator.vibrate(80)}catch(e){}say('¡Casi! ¡Otra vez!');setTimeout(()=>b.classList.remove('no'),500)}}
 function again(){stars=0;doneN={};got={};upd();home()}
 upd();home();
 </script></body></html>
