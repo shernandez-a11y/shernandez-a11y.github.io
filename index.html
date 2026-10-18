@@ -61,17 +61,82 @@ main{max-width:520px;margin:0 auto;padding:10px 12px 24px}
 .bubble p{font-size:1.25rem}
 .say{width:64px;height:64px;font-size:1.8rem}
 .big{font-size:5rem}
+.rb{position:absolute;left:30%;top:0;font-size:4.6rem;opacity:.95;animation:fadein 1.2s}
+.an{position:absolute;bottom:8%;z-index:1;background:none;border:0;box-shadow:none;width:auto;min-height:0;padding:0;font-size:3rem;cursor:pointer;animation:hop 1.5s ease-in-out infinite}
+.an:active{transform:scale(1.4)}
+.walk{animation:walk 9s ease-in-out infinite alternate}
+.fl{position:absolute;bottom:2%;font-size:1.8rem;z-index:1;animation:sway 2.4s ease-in-out infinite alternate}
+.tree{position:absolute;font-size:5rem;z-index:0}
+.ball{position:absolute;bottom:-10%;z-index:1;background:none;border:0;box-shadow:none;width:auto;min-height:0;padding:0;font-size:2.6rem;cursor:pointer;animation:rise 9s linear infinite}
+@keyframes hop{50%{transform:translateY(-14px)}}
+@keyframes walk{to{transform:translateX(-90px)}}
+@keyframes sway{to{transform:rotate(10deg)}}
+@keyframes rise{from{transform:translateY(0)}to{transform:translateY(-430px)}}
+@keyframes fadein{from{opacity:0;transform:scale(.6)}}
+.map{animation:fadein .9s}
+.place{z-index:3}
+.map{height:560px}.place i{white-space:nowrap;font-size:1.05rem}@keyframes walk{to{transform:translateX(-45px)}}.an{bottom:6%}.fl{bottom:1%}
+
+.map{height:690px;background:linear-gradient(180deg,#8fe3ff 0,#c9f1ff 45%,#e9fbff 62%)}
+.map:before,.map:after{display:none}
+.places{position:absolute;left:4%;right:4%;top:74px;display:grid;grid-template-columns:1fr 1fr;gap:10px;z-index:4}
+.places .place{position:static;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;animation:none;padding:2px}
+.places .place .e{font-size:5rem;line-height:1.05}
+.places .place i{margin-top:2px}
+.hill{position:absolute;border-radius:50% 50% 0 0;z-index:0}
+.h1{left:-35%;width:100%;bottom:105px;height:210px;background:linear-gradient(180deg,#8be07a,#5fcf6b)}
+.h2{left:35%;width:100%;bottom:95px;height:175px;background:linear-gradient(180deg,#6fd36d,#43c463)}
+.tree{position:absolute;font-size:4.2rem;line-height:1;z-index:1}
+.an{position:absolute;bottom:150px;z-index:2;background:none;border:0;box-shadow:none;width:auto;min-height:0;padding:0;font-size:3.1rem;line-height:1;cursor:pointer;animation:walkA 6s ease-in-out infinite}
+.an span{display:inline-block;animation:step .5s ease-in-out infinite}
+@keyframes walkA{0%{transform:translateX(0) scaleX(1)}48%{transform:translateX(22px) scaleX(1)}50%{transform:translateX(22px) scaleX(-1)}98%{transform:translateX(0) scaleX(-1)}100%{transform:translateX(0) scaleX(1)}}
+@keyframes step{50%{transform:translateY(-7px) rotate(4deg)}}
+.fl{position:absolute;bottom:112px;font-size:1.7rem;z-index:1;animation:sway 2.4s ease-in-out infinite alternate}
+.river{position:absolute;left:0;right:0;bottom:0;height:105px;z-index:2;background:linear-gradient(180deg,#6fd8ff,#1fa0e6);overflow:visible}
+.river:before{content:'';position:absolute;top:-9px;left:0;right:0;height:20px;background:radial-gradient(circle at 10px 10px,#6fd8ff 10px,transparent 11px) 0 0/20px 20px repeat-x;animation:flow 3s linear infinite}
+.river:after{content:'';position:absolute;inset:14px 0 0 0;background:repeating-linear-gradient(100deg,transparent 0 26px,#ffffff44 26px 30px,transparent 30px 56px);animation:flow2 4s linear infinite}
+@keyframes flow{to{background-position-x:20px}}@keyframes flow2{to{background-position-x:56px}}
+.rv{position:absolute;z-index:3;background:none;border:0;box-shadow:none;width:auto;min-height:0;padding:0;font-size:2.6rem;line-height:1;cursor:pointer}
+.rv span{display:inline-block}
+.swim{animation:swim 7s ease-in-out infinite alternate}.swim span{animation:step 1.2s ease-in-out infinite}
+.jump span{animation:jump2 2.4s ease-in-out infinite}
+.frog span{animation:step .9s ease-in-out infinite}
+@keyframes swim{to{transform:translateX(70px)}}
+@keyframes jump2{0%,55%,100%{transform:translateY(0) rotate(0)}75%{transform:translateY(-44px) rotate(-25deg)}}
+.rb{position:absolute;top:0;font-size:4rem;line-height:1}
+.fly{z-index:5;animation:glide 6s ease-in-out infinite alternate}
+@keyframes glide{to{transform:translate(18px,-10px) rotate(6deg)}}
+.place.used{filter:grayscale(.8);opacity:.7}
 </style></head><body><main>
 <div class="top"><b>🌎 Ecosistema Educativo</b><small style="display:block;font-weight:600;font-size:.95rem">Mi mundo para aprender y crecer</small><span id="stars"></span></div>
 
 <section id="home">
  <div class="map">
-  <span class="sun">☀️</span><span class="cloud" style="left:8%;top:14px">☁️</span><span class="cloud" style="left:48%;top:46px;animation-delay:2s">☁️</span>
-  <button class="fly" style="left:18%;top:62%" onclick="critter('🦋','¡Mira, una mariposa! Hola, mariposita.')">🦋</button><button class="fly" style="left:40%;top:8%;animation-delay:1s" onclick="critter('🐦','¡Pío, pío! Es un pajarito que canta.')">🐦</button>
-  <button class="place" id="p0" style="left:3%;top:30%" onclick="sc(0)"><span class="e">🏫</span><i>Mi centro educativo</i></button>
-  <button class="place" id="p1" style="left:36%;top:50%" onclick="sc(1)"><span class="e">🧸</span><i>Mi aula</i></button>
-  <button class="place" id="p2" style="left:62%;top:60%" onclick="sc(2)"><span class="e">🏠</span><i>Mi familia</i></button>
-  <button class="place" id="p3" style="left:62%;top:14%" onclick="sc(3)"><span class="e">🌳</span><i>Mi comunidad</i></button>
+  <span class="sun" style="left:82%;top:4px;right:auto">☀️</span>
+  <span class="cloud" style="left:2%;top:4px">☁️</span>
+  <span class="rb" style="left:34%">🌈</span>
+  <button class="fly" style="left:14%;top:34px" onclick="critter('🦋','¡Mira, una mariposa!')">🦋</button>
+  <button class="fly" style="left:64%;top:24px;animation-delay:1s" onclick="critter('🐦','¡Pío, pío!')">🐦</button>
+  <div class="places">
+   <button class="place" id="p0" onclick="sc(0)"><span class="e">🏫</span><i>Centro educativo</i></button>
+   <button class="place" id="p3" onclick="sc(3)"><span class="e">🌳</span><i>Comunidad</i></button>
+   <button class="place" id="p1" onclick="sc(1)"><span class="e">🧸</span><i>Aula</i></button>
+   <button class="place" id="p2" onclick="sc(2)"><span class="e">🏠</span><i>Familia</i></button>
+  </div>
+  <div class="hill h1"></div><div class="hill h2"></div>
+  <span class="tree" style="left:5%;bottom:250px">🌳</span><span class="tree" style="left:82%;bottom:232px">🌲</span>
+  <button class="an" style="left:3%;animation-duration:6s" onclick="critter('🐕','¡Guau, guau!')"><span>🐕</span></button>
+  <button class="an" style="left:20%;animation-duration:7s;animation-delay:-2s" onclick="critter('🐈','¡Miau, miau!')"><span>🐈</span></button>
+  <button class="an" style="left:37%;animation-duration:5s;animation-delay:-1s" onclick="critter('🐇','¡Salta, conejito!')"><span>🐇</span></button>
+  <button class="an" style="left:54%;animation-duration:8s;animation-delay:-3s" onclick="critter('🐑','¡Bee, bee!')"><span>🐑</span></button>
+  <button class="an" style="left:71%;animation-duration:10s" onclick="critter('🐢','¡Despacito, tortuguita!')"><span>🐢</span></button>
+  <span class="fl" style="left:14%">🌼</span><span class="fl" style="left:32%">🌷</span><span class="fl" style="left:50%">🌻</span><span class="fl" style="left:68%">🌸</span><span class="fl" style="left:90%">🌼</span>
+  <div class="river"></div>
+  <button class="rv swim" style="left:6%;bottom:42px" onclick="critter('🦆','¡Cuac, cuac!')"><span>🦆</span></button>
+  <button class="rv swim" style="left:56%;bottom:20px;animation-delay:-3s" onclick="critter('🦆','¡Cuac, cuac!')"><span>🦆</span></button>
+  <button class="rv jump" style="left:36%;bottom:26px" onclick="critter('🐟','¡Splash! ¡Un pececito!')"><span>🐟</span></button>
+  <button class="rv jump" style="left:74%;bottom:30px;animation-delay:-1.2s" onclick="critter('🐠','¡Splash! ¡Qué lindo pez!')"><span>🐠</span></button>
+  <button class="rv frog" style="left:82%;bottom:66px" onclick="critter('🐸','¡Croac, croac!')"><span>🐸</span></button>
  </div>
  <div class="bubble"><span class="av" onclick="chat(this)">🦉</span><p id="btxt"></p><button class="say" onclick="say($('btxt').textContent)">🔊</button></div>
 </section>
